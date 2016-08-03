@@ -1,0 +1,181 @@
+﻿@using WMS_Web_SCG_CDMA.Models
+@model IEnumerable<WMS_Web_SCG_CDMA.Entity_Data.VIEW_Inbound_New>
+@{
+    //var info = (SortingPagingInfo)ViewData["SortingPagingInfo"];
+    SortingPagingInfo info = (SortingPagingInfo)ViewData["info"];
+}
+<div class="box-header with-border">
+    <h3 class="box-title">Data Export</h3>
+</div>
+<div id="data-ajax" class="box-body" style="overflow-x: scroll;">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PO_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ref_Doc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serial_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Engine_Lot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupSku_Desc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TAG_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Labelling)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PutOnRack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupSku_Index)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PO_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ref_Doc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Serial_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Engine_Lot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupSku_Desc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TAG_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Labelling)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PutOnRack)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupSku_Index)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="box-footer">
+    <nav id="result">
+        <ul class="pagination">
+            @if (info.TotalPages > 0 && info.TotalPages != 1 && info.PageNumber <= info.TotalPages)
+            {
+                int RightLinks = info.PageNumber + 15;
+                int Previous = info.PageNumber - 15;
+                int Next = info.PageNumber + 1;
+                bool FirstLink = true;
+                int i;
+                if (info.PageNumber > 1)
+                {
+                    int PreviousLink = Previous == 0 ? 1 : Previous;
+                    <li><a href="#" data-page="1" title="First">1</a></li>
+                            <li>
+                                <a href="#" aria-label="Previous" data-page="@PreviousLink" title="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                    for (i = (info.PageNumber - 2); i < info.PageNumber; i++)
+                    {
+                        if (i > 0)
+                        {
+                            <li><a href="#" data-page="@i" title="Page @i">@i</a></li>
+                        }
+                    }
+                    FirstLink = false;
+                }
+                if (FirstLink)
+                {
+                    <li class="first active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                }
+                else if (info.PageNumber == info.TotalPages)
+                {
+                    <li class="last active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                }
+                else
+                {
+                    <li class="active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                }
+
+                for (i = info.PageNumber + 1; i < RightLinks; i++)
+                {
+                    if (i <= info.TotalPages)
+                    {
+                        <li><a href="#" data-page="@i" title="Page @i">@i</a></li>
+                    }
+                }
+                if (info.PageNumber < info.TotalPages)
+                {
+                    int NextLink = (i > info.TotalPages) ? info.TotalPages : i;
+                    <li>
+                        <a href="#" aria-label="Next" data-page="@NextLink" title="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                            <li class="last"><a href="#" data-page="@info.TotalPages">@info.TotalPages</a></li>
+                }
+            }
+        </ul>
+    </nav>
+</div>

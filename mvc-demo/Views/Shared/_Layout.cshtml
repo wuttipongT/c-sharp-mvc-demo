@@ -1,0 +1,883 @@
+﻿
+@using System.Web.Mvc;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+           
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>SCG</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>SCG</b>Logistics</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        
+                        <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 10 notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                                                page and may cause design problems
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-red"></i> 5 new members joined
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-user text-red"></i> You changed your username
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                @Html.Partial("_LoginPartial")
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">MAIN NAVIGATION</li>
+                   <!-- <li class="active"><a href="@Url.Action("Index", "Home")"><i class="fa fa-home" aria-hidden="true"></i> <span>Home</span></a></li>-->
+                    <li class="treeview">
+                        <a href="javascript:void(0)" data-autoclick="ServiceCharge"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>Service Charge</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu main-menu">
+                            <li><a href="@Url.Action("ServiceCharge/1", "Home")"><i class="fa fa-circle-o"></i>Disk and Rotary</a></li>
+                            <li><a href="@Url.Action("ServiceCharge/2", "Home")"><i class="fa fa-circle-o"></i> Other</a></li>
+                        </ul>
+                    </li>
+                    <li class="main-menu"><a href="@Url.Action("ExtraCharge","Home")" data-autoclick="ExtraCharge"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>Extra Charge</span></a></li>
+                    <li class="main-menu"><a href="@Url.Action("ChargeSummary","Home")" data-autoclick="ChargeSummary"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Charge Summary</span></a></li>
+                    <li class="treeview">
+                        <a href="javascript:void(0)" data-autoclick="ExportData"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i> <span>Export Data</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu main-menu">
+                            <li><a href="@Url.Action("ExportData/1", "Home")"><i class="fa fa-circle-o"></i>Data Receive SKU Qty.</a></li>
+                            <li><a href="@Url.Action("ExportData/2", "Home")"><i class="fa fa-circle-o"></i>Data Dispatch</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-database" aria-hidden="true"></i> <span>Master</span></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-bar-chart" aria-hidden="true"></i> <span>Report</span></a></li>
+                    <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+                    <li class="header">LABELS</li>
+                    <li class="main-menu2"><a href="@Url.Action("test","Home")"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+           @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy; @DateTime.Now.Year - <a href="http://kascoit.net">Kasco IT Co,.LTd</a>.</strong> All rights
+            reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                    <p>Will be 23 on April 24th</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-user bg-yellow"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                                    <p>New phone +1(800)555-1234</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+                                    <p>nora@example.com</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-file-code-o bg-green"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+                                    <p>Execution time 5 seconds</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Custom Template Design
+                                    <span class="label label-danger pull-right">70%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Update Resume
+                                    <span class="label label-success pull-right">95%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Laravel Integration
+                                    <span class="label label-warning pull-right">50%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Back End Framework
+                                    <span class="label label-primary pull-right">68%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Some information about this general settings option
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Allow mail redirect
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Other sets of options are available
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Expose author name in posts
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Allow the user to show his name in blog posts
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <h3 class="control-sidebar-heading">Chat Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Show me as online
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Turn off notifications
+                                <input type="checkbox" class="pull-right">
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Delete chat history
+                                <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- ./wrapper -->
+      
+        @Scripts.Render("~/bundles/jquery")
+        @*@System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+        @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")*@
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+
+      
+
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+        //Date picker
+        //Date range picker with time picker
+        //$('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' });
+        //Date range as a button
+        //$('#daterange-btn').daterangepicker(
+        //    {
+        //        ranges: {
+        //            'Today': [moment(), moment()],
+        //            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        //            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        //            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        //            'This Month': [moment().startOf('month'), moment().endOf('month')],
+        //            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        //        },
+        //        startDate: moment().subtract(29, 'days'),
+        //        endDate: moment()
+        //    },
+        //    function (start, end) {
+        //        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        //    }
+        //);
+
+        //simplebar.go(50);
+     
+        $(function () {
+            
+            var newHash = "",
+                root = location.protocol + '//' + location.host,
+                _href = "",
+                $mainContent = $('.content-wrapper'),
+                $el;
+
+            
+            $(".main-menu").delegate("a", "click", function (e) {
+                _href = $(this).attr("href");
+                var id = _href.split("/");
+                if (typeof window.localStorage != 'undefined') {
+                    window.location.hash = ((id.length - 1) > 2) ? id[2] + '?page=' + id[3] : id[2];
+                    localStorage.setItem("href", _href);
+                } else {
+                    window.location.hash = _href;
+                }
+                
+                return e.preventDefault();
+            });
+            $(".main-menu2").delegate('a', "click", function (e) {
+                _href = $(this).attr("href");
+                $.ajax({
+                        xhr: function () {
+                            var xhr = new window.XMLHttpRequest();
+                            //Upload progress
+                            //xhr.upload.addEventListener("progress", function (evt) {
+                            //    if (evt.lengthComputable) {
+                            //        var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                            //        //Do something with upload progress
+                            //        // console.log(percentComplete);
+                            //        console.log(percentComplete + '%');
+                            //    }
+                            //    console.log(evt.lengthComputable);
+                            //}, false);
+
+                            //Download progress
+                            xhr.addEventListener("progress", function (evt) {
+                                if (evt.lengthComputable) {
+                                    var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                                    //Do something with download progress
+                                    console.log(percentComplete + '%');
+                                }
+                                console.log(evt.lengthComputable);
+                            }, false);
+                            return xhr;
+                        },
+                    cache: false,
+                    
+                    url: _href,
+                 dataType: 'html',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (res) {
+                        var parsed = $.parseHTML(res);
+                        result = $(parsed).find("*");
+                        
+                        for (var i = 0, max = result.length; i < max; i++) {
+                            set_ele(result[i], result.length);
+                        }
+
+                        console.log(res);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        console.log(xhr);
+                        console.log(textStatus);
+                        console.log(error);
+                    }
+                });
+            });
+            var simplebar = new Nanobar();
+            var prog_width = 0;
+            function check_element(ele, total) {
+               
+                var per_inc = 100 / total;
+                
+                prog_width +=  per_inc;
+                
+                if ($(ele).on()) {
+                    
+                    simplebar.go(prog_width)
+                }
+
+                else {
+                    set_ele(ele);
+                }
+            }
+
+            function set_ele(set_element, total) {
+                check_element(set_element, total);
+            }
+            $(window).bind('hashchange', function () {
+                var location = window.location.hash.substring(1);
+                newHash = typeof window.localStorage != 'undefined' ? localStorage.getItem("href") : location;//
+                if (location == '') {
+                    var id = newHash.split("/");
+                    window.location.hash = ((id.length - 1) > 2) ? id[2] + '?page=' + id[3] : id[2];
+                    var xxx = $('ul.sidebar-menu a[data-autoclick="' + id[2] + '"]').click();
+                    var $this = $(xxx);
+                    var checkElement = $this.next();
+                    if (checkElement.is('.treeview-menu')) {
+                        var parent_li = checkElement.children("li");
+                        checkElement.find('li.active').removeClass('active');
+                        parent_li.eq(0).addClass('active');
+                    }
+
+                    
+                    //if ((id.length - 1) > 2) {
+                    //    $(".sidebar-menu li.active ul.main-menu li").addClass('active')
+                    //}
+                }
+                if (newHash != "") {
+                    var simplebar = new Nanobar();
+                    
+                    simplebar.go(50)
+                    $mainContent.load(newHash, function (responseTxt, statusTxt, xhr) {
+                      
+                        if (statusTxt == 'success' && responseTxt == '') {
+                            window.location.reload()
+                        }
+                        var url = typeof window.localStorage != 'undefined' ? localStorage.getItem("href").split("/") : window.location.hash.substring(1).split("/");//
+                        simplebar.go(100)
+                        //console.log(uri[3]);
+                        //if (uri[3] == "1") {
+
+                        //    $('.reservation').daterangepicker({
+                        //        format: 'YYYY/MM/DD',
+                        //    });
+                        //    $(".select2").select2();
+                        //}
+                        if (url.length > 3) {
+                            if (url[2] == "ExportData") {
+                                switch (url[3]) {
+                                    case "1": case "2":
+
+                                        $('.reservation').daterangepicker({
+                                            format: 'YYYY/MM/DD',
+                                        });
+                                        $(".select2").select2();
+
+                                        break;
+                                }
+                            }
+                            else if (url[2] == "ServiceCharge") {
+
+                                $('#datepicker').datepicker({
+                                    autoclose: true,
+                                    format: "mm/yyyy",
+                                    startView: "year",
+                                    minViewMode: "months"
+                                });
+
+                                $('#tabs').tab();
+
+
+
+                            }
+                        } else {
+                              if (url[2] == "ChargeSummary") {
+
+                                $('.reservation').daterangepicker({
+                                    format: 'YYYY/MM/DD',
+                                });
+                                $('#datepicker').datepicker({
+                                    autoclose: true,
+                                    format: "mm/yyyy",
+                                    startView: "year",
+                                    minViewMode: "months"
+                                });
+
+
+                            } else if (url[2] == "ExtraCharge") {
+                                $('#datepicker').datepicker({
+                                    autoclose: true,
+                                    format: "mm/yyyy",
+                                    startView: "year",
+                                    minViewMode: "months"
+                                });
+                            }
+                        }
+                         
+          
+                        //iCheck for checkbox and radio inputs
+                        //$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                        //    checkboxClass: 'icheckbox_minimal-blue',
+                        //    radioClass: 'iradio_minimal-blue'
+                        //});
+                        
+                        
+                        
+                        //console.log(responseTxt)
+                       // console.log(statusTxt)
+                       // console.log(xhr)
+                    });
+                }
+                //if (newHash != "") {
+
+                //$.ajax({
+                //    xhr: function () {
+                //        var xhr = new window.XMLHttpRequest();
+                //        //Upload progress
+                //        xhr.upload.addEventListener("progress", function (evt) {
+                //            if (evt.lengthComputable) {
+                //                var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                //                //Do something with upload progress
+                //                // console.log(percentComplete);
+                //                console.log(percentComplete + '%');
+                //            }
+                //            console.log(evt.lengthComputable);
+                //        }, false);
+
+                //        //Download progress
+                //        xhr.addEventListener("progress", function (evt) {
+                //            if (evt.lengthComputable) {
+                //                var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                //                //Do something with download progress
+                //                console.log(percentComplete + '%');
+                //            }
+                //            console.log(evt.lengthComputable);
+                //        }, false);
+                //        return xhr;
+                //    },
+                ////    type: 'POST',
+                //    cache: false,
+                //    url: newHash,
+
+                //    dataType: 'html',
+                //    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                //    success: function (data) {
+
+                //        //$mainContent.html(data, function () {
+                //        //    var uri = newHash.split("/");
+
+                //        //    console.log(uri[3]);
+                //        //    //if (uri[3] == "1") {
+
+                //        //    //    $('.reservation').daterangepicker({
+                //        //    //        format: 'YYYY/MM/DD',
+                //        //    //    });
+                //        //    //    $(".select2").select2();
+                //        //    //}
+
+                //        //    //switch (uri[3]) {
+                //        //    //    case "1": case "2":
+
+                //        //    //        $('.reservation').daterangepicker({
+                //        //    //            format: 'YYYY/MM/DD',
+                //        //    //        });
+                //        //    //        $(".select2").select2();
+
+                //        //    //        break;
+                //        //    //}
+                //        //    $('.reservation').daterangepicker({
+                //        //        format: 'YYYY/MM/DD',
+                //        //    });
+                //        //    $(".select2").select2();
+
+                //        //});
+
+                //        //var $wrap = $('.content-wrapper');
+
+                //        //$wrap
+                //        //    //// removing old data
+                //        //    //.html('')
+
+                //        //    //// slide it up
+                //        //    //.slideUp()
+
+                //        //    // load the remote page
+                //        //    .load(newHash, function () {
+                //        //        // now slide it down
+                //        //        //$wrap.slideDown();
+                //        //        var uri = newHash.split("/");
+                //        //        switch (uri[3]) {
+                //        //                    case "1": case "2":
+
+                //        //                        $('.reservation').daterangepicker({
+                //        //                            format: 'YYYY/MM/DD',
+                //        //                        });
+                //        //                        $(".select2").select2();
+
+                //        //                        break;
+                //        //                }
+                //        //    });
+
+                //    },
+                //    error: function (xhr, textStatus, error) {
+                //        alert(xhr.responseText);
+                //        console.log(xhr.statusText);
+                //        console.log(textStatus);
+                //        console.log(error);
+                //    }
+                //});
+                //}
+                // $("ul.treeview-menu a").removeClass("current");
+                //$("ul.treeview-menu a[href=" + newHash + "]").addClass("current");
+                //console.log(root + newHash);
+            });
+
+            $(window).trigger('hashchange');
+
+            $(document).on('click', 'ul.pagination a', function (e) {
+                var _this = $(e.target);
+                var pageingex = _this.data("page");
+                var url = $('form').attr("action");
+                var form = $('form');
+                //$('#result .pagination li').removeClass("active");
+                //_this.parent.addClass("active");
+                $('#PageNumber').val(pageingex);
+
+
+                $.ajax({
+                    url: url,
+                    data: form.serializeArray(),
+                    type: 'POST',
+                    success: function (res) {
+                        $("#data-ajax").html(res);
+
+                        //$.getScript("Scripts/paging.js", function () {
+                        //    alert("Running paging.js");
+                        //});
+                        //  console.log(res);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.responseText);
+                        console.log(xhr.statusText);
+                        console.log(textStatus);
+                        console.log(error);
+                    }
+                });
+                e.preventDefault();
+                // $('form').submit();
+            });
+
+            $(document).on('click', '#btnSearch', function (e) {
+                e.preventDefault();
+                var url = $('form#formGR').attr("action");
+                var form = $('form#formGR');
+
+                $.ajax({
+                    url: url,
+                    data: form.serializeArray(),
+                    type: 'POST',
+                    dataType: 'HTML',
+                    success: function (res) {
+                        $("#data-ajax").html(res);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.responseText);
+                        console.log(xhr.statusText);
+                        console.log(textStatus);
+                        console.log(error);
+                    }
+                });
+            });
+
+            $(document).on('click', '#btnExportGR, #btnExportGI', function (e) {
+                e.preventDefault();
+
+
+                    switch ($(e.target).attr('id')) {
+                        case 'btnExportGR':
+                            var _url = '@Url.Action("ExportDataReceive", "Home")',
+                            dtpGR = $('#dtpGR').val();
+                            cboGroup = $('#cboGroup').val();
+                            txtPO = $('#txtPO').val();
+                            window.location.href = _url + "?txtPO=" + txtPO + "&dtpGR=" + dtpGR + "&cboGroup=" + cboGroup;
+                            
+
+                        break;
+                        case 'btnExportGI':
+                            var _url = '@Url.Action("ExportDataDispatch", "Home")',
+                                 dtpGI = $('#dtpGI').val(),
+                                 txtShipment = $('#txtShipment_No').val(),
+                                 cboDN = $('#cboDN').val(),
+                                 cboShipTo = $('#cboShipTo').val(),
+                                 cboGroup = $('#cboGroup').val();
+                                 window.location.href = _url + "?dtpGI=" + dtpGI + "&txtShipment=" + txtShipment + "&cboDN=" + cboDN +
+                                                        "&cboShipTo=" + cboShipTo + "&cboGroup=" + cboGroup;
+                            break;
+                    }
+
+
+                    //_Date = $('').val(),
+                    //Shipment = $('').val(),
+                    //DN = $('').val(),
+                    //Shipto = $('').val(),
+                    //group = $('').val();
+
+
+                //$.ajax({
+                //    url: _url,
+                //    type: 'GET',
+                //    data: { Shipment_No: 'xxx' },
+                //    success: function (res) {
+                //        console.log(res);
+                //    }
+                //});
+
+
+
+            });
+
+            $(document).on('click', '#btnClear', function (e) {
+                $('input[name="dtpGR"]').val("");
+                $('input[name="txtPO"]').val("");
+                //$('select[name="cboGroup"]').prop("selectedIndex", 1); //.attr("selected", "selected");
+                $('select[name="cboGroup"]').val($('select[name="cboGroup"] option:first-child').val()).trigger('change');
+
+                $('input[name="chkPO"]').prop("checked", false);
+                $('input[name="chkGroup"]').prop("checked", false);
+
+                e.preventDefault();
+            });
+
+            $(document).on('click', 'input[name="chkGroup"], #chkGR, #chkPO, #chkShipTo, #chkShipment, #chkGI', function (e) {
+                var
+                    elem = $(e.target);
+                    bool = elem.prop('checked') ? 'true' : 'false',
+                    txtShipment_No = $('#txtShipment_No');
+
+                    elem.val(bool);
+
+                    if (elem.attr("id") == 'chkShipTo') {
+                        if (elem.prop('checked')) {
+                            if (txtShipment_No.val() == "") {
+                                alert("กรุณาระบุ Shipment No !")
+                            } else {
+                                $.ajax({
+                                    url: '@Url.Action("AddcbShipTo", "Home")',
+                                    type: 'GET',
+                                    data: { pstrShipment_No: txtShipment_No.val() },
+                                    dataType: 'JSON',
+                                    cache: false,
+                                    success: function (res) {
+                                        //var select = $('#myselect');
+                                        //$.each(res, function (text, key) {
+                                        //    var option = new Option(key, text);
+                                        //    select.append($(option));
+                                        //});
+                                        //console.log(res);
+                                        if (res.length != 0) {
+
+                                            if (res.length > $('#cboShipTo option').size()) {
+                                                $.each(res, function (i, item) {
+
+                                                    $('#cboShipTo').append($('<option>', {
+                                                        value: item.Customer_Shipping_Location_Index,
+                                                        text: item.Customer_Shipping_Location_Id
+                                                    }));
+                                                });
+                                            }
+
+                                        }
+
+                                    },
+                                    error: function (xhr, textStatus, error) {
+                                        alert(xhr.responseText);
+                                        console.log(xhr.statusText);
+                                        console.log(textStatus);
+                                        console.log(error);
+                                    }
+
+                                });
+                            }
+                        }
+                    } else if (elem.attr("id") == "chkShipment") {
+                        if (elem.prop('checked')) {
+                            if (txtShipment_No.val() == "") {
+                                alert("กรุณาระบุ Shipment No !")
+                            } else {
+                                $.ajax({
+                                    url: '@Url.Action("AddcbDN", "Home")',
+                                    type: 'GET',
+                                    data: { pstrShipment_No: txtShipment_No.val() },
+                                    dataType: 'JSON',
+                                    cache: false,
+                                    success: function (res) {
+
+                                        if (res.length != 0) {
+                                            if (res.length > $('#cboDN option').size()) {
+                                                $.each(res, function (i, item) {
+                                                    $('#cboDN').append($('<option>', {
+                                                        value: item.SalesOrder_Index,
+                                                        text: item.SalesOrder_No
+                                                    }));
+                                                });
+                                            }
+                                        }
+
+                                    },
+                                    error: function (xhr, textStatus, error) {
+                                        alert(xhr.responseText);
+                                        console.log(xhr.statusText);
+                                        console.log(textStatus);
+                                        console.log(error);
+                                    }
+
+                                });
+                            }
+                        }
+                    }
+            });
+
+            $(document).on('click', '#btnSearchGI', function (e) {
+                e.preventDefault();
+                var url = $('form#formGI').attr("action");
+                var form = $('form#formGI');
+
+                $.ajax({
+                    url: url,
+                    data: form.serializeArray(),
+                    type: 'POST',
+                    dataType: 'HTML',
+                    success: function (res) {
+                        $("#data-ajax").html(res);
+                    },
+                    error: function (xhr, textStatus, error) {
+                        alert(xhr.responseText);
+                        console.log(xhr.statusText);
+                        console.log(textStatus);
+                        console.log(error);
+                    }
+                });
+            });
+
+            ////Date range picker
+            //$('.reservation').daterangepicker({
+            //    format: 'YYYY/MM/DD',
+            //});
+
+            //$(document).on('click', '', function (e) {
+
+            //})
+            //$(".select2").select2();
+        });
+    </script>
+
+
+</body>
+</html>

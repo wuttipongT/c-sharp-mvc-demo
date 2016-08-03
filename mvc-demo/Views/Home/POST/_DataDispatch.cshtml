@@ -1,0 +1,212 @@
+﻿@using WMS_Web_SCG_CDMA.Models
+@model IEnumerable<WMS_Web_SCG_CDMA.Entity_Data.VIEW_OUTBOUND_NEW1>
+@{
+    //var info = (SortingPagingInfo)ViewData["SortingPagingInfo"];
+    SortingPagingInfo info = (SortingPagingInfo)ViewData["info"];
+}
+<div class="box-header with-border">
+    <h3 class="box-title">Data Export</h3>
+</div>
+<div id="data-ajax" class="box-body" style="overflow-x: scroll;">
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.GI_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNo)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Lot_Engine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tag_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupSku_Name)
+            </th>
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Pallet_No)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Qty)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Weight)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.OnRack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.License)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TruckType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarrierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShiptoName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Withdraw_No)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Package_Desc)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Shipment_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipto)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GI_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lot_Engine)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tag_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupSku_Name)
+                </td>
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Pallet_No)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnRack)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.License)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TruckType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarrierName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShiptoName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Withdraw_No)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Package_Desc)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipment_No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipto)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+</div>
+<div class="box-footer">
+    <nav id="result">
+        <ul class="pagination">
+            @if (info.TotalPages > 0 && info.TotalPages != 1 && info.PageNumber <= info.TotalPages)
+            {
+                int RightLinks = info.PageNumber + 15;
+                int Previous = info.PageNumber - 15;
+                int Next = info.PageNumber + 1;
+                bool FirstLink = true;
+                int i;
+                if (info.PageNumber > 1)
+                {
+                    int PreviousLink = Previous == 0 ? 1 : Previous;
+                    <li><a href="#" data-page="1" title="First">1</a></li>
+                            <li>
+                                <a href="#" aria-label="Previous" data-page="@PreviousLink" title="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                    for (i = (info.PageNumber - 2); i < info.PageNumber; i++)
+                    {
+                        if (i > 0)
+                        {
+                            <li><a href="#" data-page="@i" title="Page @i">@i</a></li>
+                        }
+                    }
+                    FirstLink = false;
+                }
+                if (FirstLink)
+                {
+                    <li class="first active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                }
+                else if (info.PageNumber == info.TotalPages)
+                {
+                    <li class="last active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                }
+                else
+                {
+                    <li class="active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                }
+
+                for (i = info.PageNumber + 1; i < RightLinks; i++)
+                {
+                    if (i <= info.TotalPages)
+                    {
+                        <li><a href="#" data-page="@i" title="Page @i">@i</a></li>
+                    }
+                }
+                if (info.PageNumber < info.TotalPages)
+                {
+                    int NextLink = (i > info.TotalPages) ? info.TotalPages : i;
+                    <li>
+                        <a href="#" aria-label="Next" data-page="@NextLink" title="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                            <li class="last"><a href="#" data-page="@info.TotalPages">@info.TotalPages</a></li>
+                }
+            }
+        </ul>
+    </nav>
+</div>

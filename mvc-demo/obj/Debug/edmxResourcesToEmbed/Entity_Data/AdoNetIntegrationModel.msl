@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WMS_Web_SCG_CDMAEntity_DataStoreContainer" CdmEntityContainer="AdoNetIntegrationEntities">
+    <FunctionImportMapping FunctionImportName="sp_LoginByUsernamePassword" FunctionName="WMS_Web_SCG_CDMA.Entity_Data.Store.sp_LoginByUsernamePassword">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WMS_Web_SCG_CDMA.Entity_Data.sp_LoginByUsernamePassword_Result">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="userPasswd" ColumnName="userPasswd" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

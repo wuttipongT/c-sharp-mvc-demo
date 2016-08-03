@@ -1,0 +1,121 @@
+﻿@model IEnumerable<WMS_Web_SCG_CDMA.Entity_Data.VIEW_Inbound_New>
+
+@{
+    Layout = null;
+}
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PO_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ref_Doc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serial_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Engine_Lot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupSku_Desc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TAG_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Labelling)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PutOnRack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupSku_Index)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PO_No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ref_Doc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serial_No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Engine_Lot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupSku_Desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TAG_No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Labelling)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PutOnRack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order_No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupSku_Index)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+    
+    </table>

@@ -1,0 +1,321 @@
+﻿@using WMS_Web_SCG_CDMA.Models
+@using WMS_Web_SCG_CDMA.Entity_Data
+@model IEnumerable<VIEW_Inbound_New>
+@{
+    Layout = null;
+    IEnumerable<ms_GroupSku> ms_GroupSku = (IEnumerable<ms_GroupSku>)ViewData["ms_GroupSku"];
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Export Data
+        <small>Data Recive SKU Qty.</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Data Export</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- /.box-header -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Data Export</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        @{
+            SortingPagingInfo info = (SortingPagingInfo)ViewData["info"];
+            Export frm = new Export();
+        }
+        @using (Html.BeginForm("ExportData", "Home", FormMethod.Post, new { @role = "form", @id = "formGR" }))
+        {
+            @Html.Hidden("TotalPages", info.TotalPages)
+            @Html.Hidden("ItemPerPage", info.ItemPerPage)
+            @Html.Hidden("PageNumber", info.PageNumber)
+            @Html.Hidden("SortField", info.SortField)
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <table cellpadding="10">
+                                    <tr>
+                                        <td>
+                                            <label>
+                                                <input id="chkGR" name="chkGR" type="checkbox" class="minimal" checked value="true">
+                                                วันที่ GR ตัด Stock
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input id="dtpGR" name="dtpGR" class="form-control inline reservation" type="text" autocomplete="off">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input id="chkGroup" name="chkGroup" type="checkbox" class="minimal" checked value="true">
+                                                กลุ่มสินค้าระบบ
+                                            </label>
+                                        </td>
+                                        <td style="min-width: 200px;">
+                                            <select id="cboGroup" name="cboGroup" class="form-control select2" style="width: 100%;">
+                                                @foreach (var item in ms_GroupSku)
+                                                {
+                                                    <option value="@item.GroupSku_Index">@item.GroupSku_Name</option>
+                                                }
+
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-12">
+                                <table cellpadding="10">
+                                    <tr>
+                                        <td>
+                                            <label>
+                                                <input id="chkPO" name="chkPO" type="checkbox" class="minimal">
+                                                PO No.
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input id="txtPO" name="txtPO" class="form-control" type="text" autocomplete="off">
+                                            </div>
+                                            <!-- /.input group -->
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+                            <!-- /.col -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.box-body -->
+
+
+            <div class="box-footer">
+                <button id="btnSearch" type="button" class="btn btn-primary">ค้นหา</button>
+                <button id="btnClear" type="button" class="btn btn-danger">Clear</button>
+            </div>
+        }
+    </div>
+    <!-- /.box -->
+    <div id="data-ajax" class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Data Export</h3>
+        </div>
+        <div class="box-body">
+            <table class="table">
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.GR_DATE)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PO_No)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Ref_Doc)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Serial_No)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Qty)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GroupSku_Desc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductType)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.TAG_No)
+                    </th>
+
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Engine_Lot)
+                        </th>*@
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Labelling)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PutOnRack)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order_No)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Supplier_Name)
+                    </th>
+
+
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.GroupSku_Index)
+                        </th>*@
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GR_DATE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PO_No)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Ref_Doc)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Serial_No)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Qty)
+                        </td>
+
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Engine_Lot)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupSku_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductType)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TAG_No)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Labelling)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PutOnRack)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Order_No)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier_Name)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GroupSku_Index)
+                            </td>*@
+                    </tr>
+                }
+
+            </table>
+        </div>
+        <div class="box-footer">
+
+            <button id="btnExportGR" class="btn btn-default">Export</button>
+
+            <table style="float:right" cellpadding="5">
+                <tr><td rowspan="3" align="center" valign="bottom">รวม</td></tr>
+                <tr>
+                    <td style="text-align:center">จำนวนรวม</td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="form-control" readonly value="0.0000" /></td>
+                </tr>
+            </table>
+            <nav id="result">
+                <ul class="pagination">
+                    @if (info.TotalPages > 0 && info.TotalPages != 1 && info.PageNumber <= info.TotalPages)
+                    {
+                        int RightLinks = info.PageNumber + 15;
+                        int Previous = info.PageNumber - 15;
+                        int Next = info.PageNumber + 1;
+                        bool FirstLink = true;
+                        int i;
+                        if (info.PageNumber > 1)
+                        {
+                            int PreviousLink = Previous == 0 ? 1 : Previous;
+                            <li><a href="#" data-page="1" title="First">1</a></li>
+                            <li>
+                                <a href="#" aria-label="Previous" data-page="@PreviousLink" title="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            for (i = (info.PageNumber - 2); i < info.PageNumber; i++)
+                            {
+                                if (i > 0)
+                                {
+                                    <li><a href="#" data-page="@i" title="Page @i">@i</a></li>
+                                }
+                            }
+                            FirstLink = false;
+                        }
+                        if (FirstLink)
+                        {
+                            <li class="first active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                        }
+                        else if (info.PageNumber == info.TotalPages)
+                        {
+                            <li class="last active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                        }
+                        else
+                        {
+                            <li class="active"><a href="#">@info.PageNumber<span class="sr-only">(current)</span></a></li>
+                        }
+
+                        for (i = info.PageNumber + 1; i < RightLinks; i++)
+                        {
+                            if (i <= info.TotalPages)
+                            {
+                                <li><a href="#" data-page="@i" title="Page @i">@i</a></li>
+                            }
+                        }
+                        if (info.PageNumber < info.TotalPages)
+                        {
+                            int NextLink = (i > info.TotalPages) ? info.TotalPages : i;
+                            <li>
+                                <a href="#" aria-label="Next" data-page="@NextLink" title="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="last"><a href="#" data-page="@info.TotalPages">@info.TotalPages</a></li>
+                        }
+                    }
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</section>

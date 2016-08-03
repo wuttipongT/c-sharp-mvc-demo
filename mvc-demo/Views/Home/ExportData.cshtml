@@ -1,0 +1,45 @@
+﻿
+
+@*@if (HttpContext.Current.Request.HttpMethod == "POST"){}*@
+
+@*@model IEnumerable<WMS_Web_SCG_CDMA.Entity_Data.VIEW_Inbound_New>*@
+@using WMS_Web_SCG_CDMA.Models
+@using WMS_Web_SCG_CDMA.Entity_Data
+@model Tuple<List<VIEW_Inbound_New>, List<VIEW_OUTBOUND_NEW1>>   
+@{
+    ViewBag.Title = "Export Data";
+   // IEnumerable<WMS_Web_SCG_CDMA.Entity_Data.ms_GroupSku> ms_GroupSku = ViewBag.ms_GroupSku;
+    var ms_GroupSku2 = (IOrderedQueryable)ViewData["ms_GroupSku"];
+    var info = (SortingPagingInfo)ViewData["SortingPagingInfo"];
+    int id = (int)ViewBag.Page;
+}
+
+@{
+    if (HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        //_DataReceiveSKUQty
+        if (id == 1)
+        {
+            @Html.Partial("POST/_DataReceiveSKUQty", Model.Item1, new ViewDataDictionary { { "info", info } });
+        }
+        else if (id == 2)
+        {
+            @Html.Partial("POST/_DataDispatch", Model.Item2, new ViewDataDictionary { { "info", info } });
+        }
+    }
+    else
+    {
+        if (id == 1)
+        {
+            @Html.Partial("Subviews/_frmSCG_GR", Model.Item1, new ViewDataDictionary { { "ms_GroupSku", ms_GroupSku2 }, { "info", info } });
+        }
+        else if (id == 2)
+        {
+            @Html.Partial("Subviews/_frmSCG_GI", Model.Item2, new ViewDataDictionary { { "ms_GroupSku", ms_GroupSku2 }, { "info", info } });
+        }
+
+    }
+
+
+}
+
